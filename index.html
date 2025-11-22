@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Viện Hình Ảnh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Skip to main content link - only visible on focus */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+            outline: 3px solid #ffd700;
+        }
+
+        /* Navigation styling with flexbox */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Main content sections */
+        section {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Image styling with box model */
+        .image-container img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 4px solid white;
+            padding: 5px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-color: #ffd700;
+        }
+
+        /* Grid layout for page 1 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Flexbox layout for page 2 */
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .flex-container .image-container {
+            flex: 1 1 calc(33.333% - 2rem);
+            min-width: 250px;
+        }
+
+        /* nth-child selector for different border-radius */
+        .flex-container .image-container:nth-child(1) img {
+            border-radius: 50%;
+        }
+
+        .flex-container .image-container:nth-child(2) img {
+            border-radius: 25px;
+        }
+
+        .flex-container .image-container:nth-child(3) img {
+            border-radius: 10px 50px;
+        }
+
+        .flex-container .image-container:nth-child(4) img {
+            border-radius: 5px;
+        }
+
+        .flex-container .image-container:nth-child(5) img {
+            border-radius: 30px 5px 30px 5px;
+        }
+
+        /* Simple grid for page 3 */
+        .simple-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Image captions */
+        .image-container {
+            position: relative;
+        }
+
+        .caption {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .grid-container,
+            .simple-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Chuyển đến Nội dung Chính</a>
+
+    <nav>
+        <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">📷 Thư Viện</div>
+        <ul>
+            <li><a href="#" onclick="showPage('page1')">Trang 1 - Grid</a></li>
+            <li><a href="#" onclick="showPage('page2')">Trang 2 - Flex (5 ảnh)</a></li>
+            <li><a href="#" onclick="showPage('page3')">Trang 3 - Simple</a></li>
+        </ul>
+    </nav>
+
+    <main id="main">
+        <!-- Page 1: Grid Layout với 3 ảnh -->
+        <section id="page1" class="active">
+            <h1>Trang 1: Bộ Sưu Tập Phong Cảnh</h1>
+            <div class="grid-container">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600" alt="Núi non hùng vĩ">
+                    <p class="caption">Núi Non Hùng Vĩ</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Bãi biển đẹp">
+                    <p class="caption">Bãi Biển Tuyệt Đẹp</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=600" alt="Rừng cây xanh">
+                    <p class="caption">Rừng Cây Xanh Mát</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: Flex Layout với 5 ảnh -->
+        <section id="page2">
+            <h1>Trang 2: Thế Giới Động Vật</h1>
+            <div class="flex-container">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=600" alt="Sư tử">
+                    <p class="caption">Sư Tử Uy Nghiêm</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600" alt="Voi">
+                    <p class="caption">Voi Khổng Lồ</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=600" alt="Chim đại bàng">
+                    <p class="caption">Đại Bàng Bay Cao</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=600" alt="Cá heo">
+                    <p class="caption">Cá Heo Tinh Nghịch</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=600" alt="Cáo">
+                    <p class="caption">Cáo Thông Minh</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 3: Simple Grid với 2 ảnh -->
+        <section id="page3">
+            <h1>Trang 3: Kiến Trúc Đẹp</h1>
+            <div class="simple-grid">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600" alt="Tòa nhà hiện đại">
+                    <p class="caption">Tòa Nhà Hiện Đại</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600" alt="Cầu đẹp">
+                    <p class="caption">Cây Cầu Kỳ Vĩ</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
